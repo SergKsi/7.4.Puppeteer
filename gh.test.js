@@ -18,7 +18,6 @@ describe('GitHub.Team. Github page tests', () => {
       const firstLink = await page.$('header div div a');
       await firstLink.click();
       await page.waitForSelector('h1');
-      timeout: 30000;
       const title2 = await page.title();
       expect(title2).toEqual(
          'GitHub for teams · Build like the best teams on the planet · GitHub'
@@ -26,7 +25,6 @@ describe('GitHub.Team. Github page tests', () => {
    });
 
    test('GitHub.Team. The first link attribute', async () => {
-      timeout: 10000;
       const actual = await page.$eval('a', link => link.getAttribute('href'));
       expect(actual).toEqual('#start-of-content');
    });
@@ -36,23 +34,24 @@ describe('GitHub.Team. Github page tests', () => {
       await page.waitForSelector(btnSelector, {
          visible: true
       });
-      timeout: 10000;
       const actual = await page.$eval(btnSelector, link => link.textContent);
       expect(actual).toMatch('Get started with Team');
    });
-});
+}, 10000);
 
 test("GitHub. Enterprise. The h1 header content'", async () => {
    const firstLink = await page.$('header div div a');
    await firstLink.click();
    await page.waitForSelector('h1');
-   timeout: 30000;
+   jest.setTimeout(10000);
    const title2 = await page.title();
-   expect(title2).toEqual('Enterprise · A smarter way to work together · GitHub');
+   expect(title2).toEqual(
+      'Enterprise · A smarter way to work together · GitHub'
+   );
 });
 
 test('GitHub. Enterprise. The first link attribute', async () => {
-   timeout: 10000;
+   jest.setTimeout(10000);
    const actual = await page.$eval('a', link => link.getAttribute('href'));
    expect(actual).toEqual('#start-of-content');
 });
@@ -63,7 +62,7 @@ test('GitHub. Enterprise. The page contains Sign in button', async () => {
    await page.waitForSelector(btnSelector, {
       visible: true
    });
-   timeout: 10000;
+   jest.setTimeout(10000);
    const actual = await page.$eval(btnSelector, link => link.textContent);
    expect(actual).toMatch('Start a free trial');
 });
